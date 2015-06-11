@@ -22,13 +22,8 @@ Ext.define("data.collegesecretary.ShowCollegeSecretaryForm",{
 			readOnly : true
 		});
 		var name = Ext.create("Ext.form.field.Text",{
-			fieldLabel : "教学秘书",
+			fieldLabel : "姓名",
 			value : me.oldUserName,
-			readOnly : true
-		});
-		var password = Ext.create("Ext.form.field.Text",{
-			fieldLabel : "密码",
-			value : me.oldUserPassword,
 			readOnly : true
 		});
 		var email = Ext.create("Ext.form.field.Text",{
@@ -46,7 +41,7 @@ Ext.define("data.collegesecretary.ShowCollegeSecretaryForm",{
 			value : me.oldUserSex,
 			readOnly : true
 		});
-		this.items = [college_name,id,name,password,email,tel,sex];
+		this.items = [college_name,id,name,email,tel,sex];
 		this.callParent(arguments);
 	}
 

@@ -4,20 +4,20 @@ Ext.define("data.collegesecretary.DeleteCollegeSecretaryForm", {
 	layout :　"form",
 	width : 350,
 	heigth : 150,
-	lableAlign : "rigth",
-	lablewidth : 50,
+	labelAlign : "right",
+	lableWidth : 50,
 	frame : true,
-	modle :true,
+	modal : true,
 	buttonAlign : "center",
 	initComponent : function() {
 		var me = this;
 		var user_id = Ext.create("Ext.form.field.Text",{
-			fieldLable : "登录名",
+			fieldLabel : "登录名",
 			value : me.oldUserId,
 			readOnly : true
 		});
 		var college_name = Ext.create("Ext.form.field.Text",{
-			fieldLable : "学校名称",
+			fieldLabel : "学校名称",
 			value : me.oldCollegeName,
 			readOnly : true
 		});

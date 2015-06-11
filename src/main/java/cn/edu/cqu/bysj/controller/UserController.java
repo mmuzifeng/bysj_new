@@ -67,6 +67,12 @@ public class UserController extends BaseController{
 	{
 		return jt.update("update user set id=?,name=?,sex=?password=?,rol=?,tel=?,email=? where id=?",id,name,sex,password,rol,tel,email,oldId);
 	}
+	@RequestMapping(value="/user/updateUserPassword")
+	@Transactional
+	public int updateUserPassword(String id,String password)
+	{
+		return jt.update("update user set password=? where id=?",password,id);
+	}
 	@RequestMapping(value="/user/addUser")
 	@Transactional
 	public int adduser(String id,String name,String sex,String password,String role, String tel,String email)

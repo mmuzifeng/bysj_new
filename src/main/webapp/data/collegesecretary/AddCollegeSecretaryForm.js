@@ -63,18 +63,7 @@ Ext.define("data.collegesecretary.AddCollegeSecretaryForm", {
 			}
 		});
 		var name = Ext.create("Ext.form.field.Text",{
-			fieldLabel : "教学秘书",
-			allowBlank : false,
-			blankText : "不能为空",
-			maxLength : 25,
-			maxLengthText : "长度不能超过25",
-			textValid : true,
-			validator : function(val) {
-				return this.textValid;
-			},
-		});
-		var password = Ext.create("Ext.form.field.Text",{
-			fieldLabel : "密码",
+			fieldLabel : "姓名",
 			allowBlank : false,
 			blankText : "不能为空",
 			maxLength : 25,
@@ -121,7 +110,7 @@ Ext.define("data.collegesecretary.AddCollegeSecretaryForm", {
 		var save = Ext.create("Ext.Button", {
 			text : "保存",
 			handler : function() {
-				if (name.isValid()&&user_id.isValid()&&college_id.isValid()&&password.isValid()&&email.isValid()&&tel.isValid()&&sex.isValid()) {
+				if (name.isValid()&&user_id.isValid()&&college_id.isValid()&&email.isValid()&&tel.isValid()&&sex.isValid()) {
 					Ext.MessageBox.confirm("提示", "确定保存吗？", function(choose) {
 						if (choose == "yes") {
 							Ext.Ajax.request({
@@ -132,14 +121,14 @@ Ext.define("data.collegesecretary.AddCollegeSecretaryForm", {
 									id : user_id.getValue(),
 									name : name.getValue(),
 									sex : sex.getValue(),
-									password : password.getValue(),
+									password : "000000",
 									role : "c",
 									tel : tel.getValue(),
 									email : email.getValue()
 								},
 								success : function(response) {
 									if (response.responseText == "1") {
-										Ext.MessageBox.alert("提示", "保存成功！");
+										Ext.MessageBox.alert("提示", "保存成功,默认密码为：000000");
 										me.close();
 									} else {
 										Ext.MessageBox.alert("提示", "保存失败，请检查数据！");
@@ -158,8 +147,8 @@ Ext.define("data.collegesecretary.AddCollegeSecretaryForm", {
 					});
 				}
 			}
-		})
-		this.items = [college_id,user_id,name,password,email,tel,sex];
+		});
+		this.items = [college_id,user_id,name,email,tel,sex];
 		this.buttons =  [save];
 		this.callParent(arguments);
 	}

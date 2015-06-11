@@ -19,7 +19,7 @@ Ext.define("data.collegesecretary.ManageCollegeSecretary", {
 		dataIndex : "college_name"
 	},
 	{
-		header : "教学秘书",
+		header : "姓名",
 		width : 100,
 		dataIndex : "user_name"
 	},
@@ -27,27 +27,21 @@ Ext.define("data.collegesecretary.ManageCollegeSecretary", {
 		header : "登录名",
 		width : 100,
 		dataIndex : "user_id"
-	}/*,{
-		width : 0,
-		dataIndex : "college_id"
 	},{
-		width : 0,
-		dataIndex : "password"
-	},{
-		width : 0,
+		header :"电话",
+		width : 100,
 		dataIndex : "tel"
 	},{
-		width : 0,
+		header : "邮箱",
+		width : 100,
 		dataIndex : "email"
-	},{
-		width : 0,
-		dataIndex : "sex"
-	}*/],
+	}],
 	initComponent : function() {
 		Ext.syncRequire("data.collegesecretary.AddCollegeSecretaryForm");
 		Ext.syncRequire("data.collegesecretary.UpdateCollegeSecretaryForm");
 		Ext.syncRequire("data.collegesecretary.ShowCollegeSecretaryForm");
 		Ext.syncRequire("data.collegesecretary.DeleteCollegeSecretaryForm");
+		Ext.syncRequire("data.collegesecretary.ChangePasswordCollegeSecretaryForm");
 		var me = this;
 		var toolbar = Ext.create('Ext.toolbar.Toolbar', {
 			items : [ {
@@ -124,6 +118,25 @@ Ext.define("data.collegesecretary.ManageCollegeSecretary", {
 						var win = Ext.create("data.collegesecretary.DeleteCollegeSecretaryForm",{
 							oldUserId:m[0].get("user_id"),
 							oldCollegeName:m[0].get("college_name"),
+							listeners:{
+								close:function( panel, eOpts )
+								{
+									me.getStore().load();
+								}
+							}
+						});
+						win.show();	
+					}
+				} 
+			},{
+				text : "密码修改",
+				handler : function() {
+					var m = me.getSelection();
+					if(m.length == 0){
+					Ext.MessageBox.alert("提示","未选中任何数据！");	
+					}else {
+						var win = Ext.create("data.collegesecretary.ChangePasswordCollegeSecretaryForm",{
+							oldUserId:m[0].get("user_id"),
 							listeners:{
 								close:function( panel, eOpts )
 								{

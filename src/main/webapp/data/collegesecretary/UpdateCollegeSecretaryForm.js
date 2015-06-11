@@ -65,16 +65,8 @@ Ext.define("data.collegesecretary.UpdateCollegeSecretaryForm",{
 			}
 		});
 		var name = Ext.create("Ext.form.field.Text",{
-			fieldLabel : "教学秘书",
+			fieldLabel : "姓名",
 			value : me.oldUserName,
-			allowBlank : false,
-			blankText : "不能为空",
-			maxLength : 10,
-			maxLengthText : "长度不能超过10",
-		});
-		var password = Ext.create("Ext.form.field.Text",{
-			fieldLabel : "密码",
-			value : me.oldUserPassword,
 			allowBlank : false,
 			blankText : "不能为空",
 			maxLength : 10,
@@ -107,7 +99,7 @@ Ext.define("data.collegesecretary.UpdateCollegeSecretaryForm",{
 		var updat = Ext.create("Ext.Button", {
 			text : "确认修改",
 			handler : function() {
-				if (college_name.isValid()&&id.isValid()&&name.isValid()&&password.isValid()&&email.isValid()&&tel.isValid()&&sex.isValid()) {
+				if (college_name.isValid()&&id.isValid()&&name.isValid()&&email.isValid()&&tel.isValid()&&sex.isValid()) {
 					Ext.MessageBox.confirm("提示", "确定修改吗？", function(choose) {
 						if (choose == "yes") {
 							Ext.Ajax.request({
@@ -118,7 +110,7 @@ Ext.define("data.collegesecretary.UpdateCollegeSecretaryForm",{
 									user_id : id.getValue(),
 									name : name.getValue(),
 									sex : sex.getValue(),
-									password : password.getValue(),
+									password : me.oldUserPassword,
 									tel : tel.getValue(),
 									email : email.getValue(),
 									role : "c"
@@ -144,7 +136,7 @@ Ext.define("data.collegesecretary.UpdateCollegeSecretaryForm",{
 				}
 			}
 		})
-		this.items = [college_name,id,name,password,email,tel,sex];
+		this.items = [college_name,id,name,email,tel,sex];
 		this.buttons = [updat];
 		this.callParent(arguments);
 	}

@@ -13,16 +13,16 @@ Ext.define("menu.UniversityMenu", {
 						leaf : true
 					},
 					{
+						text:"教学秘书管理",
+						cmpName:"data.collegesecretary.ManageCollegeSecretary",
+						leaf:true
+					},
+					{
 						text:"基础数据管理",
 						children:[
 							{
 								text:"学院信息管理",
 								cmpName:"data.college.ManageCollege",
-								leaf:true
-							},
-							{
-								text:"教学秘书管理",
-								cmpName:"data.collegesecretary.ManageCollegeSecretary",
 								leaf:true
 							}
 						]
