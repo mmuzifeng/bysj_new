@@ -5,6 +5,13 @@
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/data/college"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/data/collegesecretary"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/menu"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/scripts/extjs"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/scripts/extjs/packages"/>
 		<property name="java-output-path" value="target/classes"/>
         <property name="context-root" value="bysj"/>
 	</wb-module>
