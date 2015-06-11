@@ -3,6 +3,7 @@ package cn.edu.cqu.bysj.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,5 +51,26 @@ public class UserController extends BaseController{
 			response.put("msg","fail" );
 		}
 		return response;
+	}
+	@RequestMapping(value="/user/checkForAdd")
+	public boolean checkForAdd(String column,String value)
+	{
+		int n=jt.queryForObject("select count(*) from user where "+column+"=?",Integer.class, value);
+		if(n>0)
+			return false;
+		else
+			return true;
+	}
+	@RequestMapping(value="/user/updateUser")
+	@Transactional
+	public int updateUser(String id,String name,String sex,String password,String rol,String tel,String email,String oldId)
+	{
+		return jt.update("update user set id=?,name=?,sex=?password=?,rol=?,tel=?,email=? where id=?",id,name,sex,password,rol,tel,email,oldId);
+	}
+	@RequestMapping(value="/user/addUser")
+	@Transactional
+	public int adduser(String id,String name,String sex,String password,String role, String tel,String email)
+	{
+		return jt.update("insert into user values(?,?,?,?,?,?,?)",id,name,sex,password,role,tel,email);
 	}
 }
