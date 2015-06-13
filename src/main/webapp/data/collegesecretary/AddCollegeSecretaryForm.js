@@ -121,14 +121,12 @@ Ext.define("data.collegesecretary.AddCollegeSecretaryForm", {
 									id : user_id.getValue(),
 									name : name.getValue(),
 									sex : sex.getValue(),
-									password : "000000",
-									role : "c",
 									tel : tel.getValue(),
 									email : email.getValue()
 								},
 								success : function(response) {
 									if (response.responseText == "1") {
-										Ext.MessageBox.alert("提示", "保存成功,默认密码为：000000");
+										Ext.MessageBox.alert("提示", "保存成功!");
 										me.close();
 									} else {
 										Ext.MessageBox.alert("提示", "保存失败，请检查数据！");

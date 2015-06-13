@@ -7,9 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.edu.cqu.bysj.model.Role;
+
 @RestController
 public class CollegeSecretaryController  extends BaseController  {
-
+	public static final String DEFAULT_PASSWORD="000000";
 	@RequestMapping(value="/collegeSecretary/listAllCollegeSecretary")
 	public List<Map<String,Object>> listAllCollegeSecretary()
 	{
@@ -17,9 +19,9 @@ public class CollegeSecretaryController  extends BaseController  {
 	}
 	@RequestMapping(value="/collegeSecretary/addCollegeSecretary")
 	@Transactional
-	public int addCollegeSecretary(String id,String name,String sex,String password,String role, String tel,String email,String user_id,String college_id)
+	public int addCollegeSecretary(String id,String name,String sex, String tel,String email,String user_id,String college_id)
 	{
-		 int return_u = jt.update("insert into user values(?,?,?,?,?,?,?)",id,name,sex,password,role,tel,email);
+		 int return_u = jt.update("insert into user values(?,?,?,?,?,?,?)",id,name,sex,DEFAULT_PASSWORD,Role.College,tel,email);
 		 int return_c =	jt.update("insert into college_secretary (user_id,college_id) values(?,?)",user_id,college_id);
 		 if(return_c !=0 && return_u !=0)
 			 return 1;
@@ -28,11 +30,11 @@ public class CollegeSecretaryController  extends BaseController  {
 	}
 	@RequestMapping(value="/collegeSecretary/updateCollegeSecretary")
 	@Transactional
-	public int updateCollegeSecretary(String name,String sex,String password,String role, String tel,String email,String user_id,String college_id,String oldUser_id)
+	public int updateCollegeSecretary(String name,String sex,String tel,String email,String user_id,String college_id,String oldUser_id)
 	{
 		 
 		 int return_d = jt.update("delete from college_secretary where user_id=?",oldUser_id);
-		 int return_u = jt.update("update user set id=?,name=?,sex=?,password=?,role=?,tel=?,email=? where id=?",user_id,name,sex,password,role,tel,email,oldUser_id);;
+		 int return_u = jt.update("update user set id=?,name=?,sex=?,tel=?,email=? where id=?",user_id,name,sex,tel,email,oldUser_id);;
 		 int return_c =	jt.update("insert into college_secretary (user_id,college_id) values(?,?)",user_id,college_id);
 		 if(return_c !=0 && return_u !=0 && return_d!=0)
 			 return 1;
@@ -47,7 +49,16 @@ public class CollegeSecretaryController  extends BaseController  {
 		if(return_u!=0 && return_c!=0) 
 			return 1;
 		else
-				return 0;	
+			return 0;	
+	}
+	@RequestMapping(value="/collegesecretary/resetPassword")
+	@Transactional
+	public int resetPassword(String user_id) {
+		int retv = jt.update("update user set password=? where id=?",DEFAULT_PASSWORD,user_id);
+		if(retv>0)
+			return 1;
+		else
+			return 0;
 	}
 	@RequestMapping(value="/collegeSecretary/checkForAdd")
 	public boolean checkForAdd(String column,String value)

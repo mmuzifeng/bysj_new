@@ -110,10 +110,8 @@ Ext.define("data.collegesecretary.UpdateCollegeSecretaryForm",{
 									user_id : id.getValue(),
 									name : name.getValue(),
 									sex : sex.getValue(),
-									password : me.oldUserPassword,
 									tel : tel.getValue(),
-									email : email.getValue(),
-									role : "c"
+									email : email.getValue()
 								},
 								success : function(response) {
 									if (response.responseText == "1") {
