@@ -40,8 +40,6 @@ Ext.define("data.collegesecretary.ManageCollegeSecretary", {
 		Ext.syncRequire("data.collegesecretary.AddCollegeSecretaryForm");
 		Ext.syncRequire("data.collegesecretary.UpdateCollegeSecretaryForm");
 		Ext.syncRequire("data.collegesecretary.ShowCollegeSecretaryForm");
-		Ext.syncRequire("data.collegesecretary.DeleteCollegeSecretaryForm");
-		Ext.syncRequire("data.collegesecretary.ChangePasswordCollegeSecretaryForm");
 		var me = this;
 		var toolbar = Ext.create('Ext.toolbar.Toolbar', {
 			items : [ {
@@ -113,38 +111,63 @@ Ext.define("data.collegesecretary.ManageCollegeSecretary", {
 				handler : function() {
 					var m = me.getSelection();
 					if(m.length == 0){
-					Ext.MessageBox.alert("提示","未选中任何数据！");	
+						Ext.MessageBox.alert("提示","未选中任何数据！");	
 					}else {
-						var win = Ext.create("data.collegesecretary.DeleteCollegeSecretaryForm",{
-							oldUserId:m[0].get("user_id"),
-							oldCollegeName:m[0].get("college_name"),
-							listeners:{
-								close:function( panel, eOpts )
-								{
-									me.getStore().load();
+						Ext.MessageBox.confirm("提示","确认删除？",function(choose){
+							if(choose == "yes"){
+									Ext.Ajax.request({
+										url : "collegesecretary/deleteCollegeSecretary.do",
+										params :{
+											user_id : m[0].get("user_id")
+										},
+										success : function(response) {	
+											if (response.responseText == "1") {
+												Ext.MessageBox.alert("提示", "删除成功！");
+												me.getStore().load();
+											}else{
+												Ext.MessageBox.alert("提示", "删除失败！");
+											}
+												
+										},
+										failure : function(response) {							
+												Ext.MessageBox.alert("提示", "服务器异常，请检查网络连接，或者联系管理员！");
+										}	
+									});
 								}
-							}
-						});
-						win.show();	
+								
+							});
+						}
 					}
-				} 
 			},{
-				text : "密码修改",
+				text : "重置密码",
 				handler : function() {
 					var m = me.getSelection();
 					if(m.length == 0){
-					Ext.MessageBox.alert("提示","未选中任何数据！");	
+						Ext.MessageBox.alert("提示","未选中任何数据！");	
 					}else {
-						var win = Ext.create("data.collegesecretary.ChangePasswordCollegeSecretaryForm",{
-							oldUserId:m[0].get("user_id"),
-							listeners:{
-								close:function( panel, eOpts )
-								{
-									me.getStore().load();
+						Ext.MessageBox.confirm("提示","重置密码？",function(choose){
+							if(choose == "yes"){
+									Ext.Ajax.request({
+										url : "collegesecretary/resetPassword.do",
+										params :{
+											user_id : m[0].get("user_id")
+										},
+										success : function(response) {		
+											if (response.responseText == "1") {
+												Ext.MessageBox.alert("提示", "重置密码成功！");
+												me.getStore().load();
+											}else{
+												Ext.MessageBox.alert("提示", "重置密码失败！");
+											}
+												
+										},
+										failure : function(response) {							
+												Ext.MessageBox.alert("提示", "服务器异常，请检查网络连接，或者联系管理员！");
+										}	
+									});
 								}
-							}
-						});
-						win.show();	
+								
+							});
 					}
 				} 
 			}

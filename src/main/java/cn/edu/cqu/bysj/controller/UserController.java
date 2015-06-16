@@ -52,6 +52,7 @@ public class UserController extends BaseController{
 		}
 		return response;
 	}
+	
 	@RequestMapping(value="/user/checkForAdd")
 	public boolean checkForAdd(String column,String value)
 	{
@@ -61,7 +62,8 @@ public class UserController extends BaseController{
 		else
 			return true;
 	}
-	@RequestMapping(value="/user/updateUser")
+	//以下方法不需要
+	/*@RequestMapping(value="/user/updateUser")
 	@Transactional
 	public int updateUser(String id,String name,String sex,String password,String rol,String tel,String email,String oldId)
 	{
@@ -78,5 +80,5 @@ public class UserController extends BaseController{
 	public int adduser(String id,String name,String sex,String password,String role, String tel,String email)
 	{
 		return jt.update("insert into user values(?,?,?,?,?,?,?)",id,name,sex,password,role,tel,email);
-	}
+	}*/
 }
